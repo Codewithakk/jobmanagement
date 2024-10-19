@@ -21,7 +21,7 @@ app.use(helmet());
 
 // CORS Configuration
 app.use(cors({
-  origin: ['http://localhost:5000', 'https://job-management-akshay.netlify.app'],
+  origin: ['http://localhost:3000', 'https://job-management-akshay.netlify.app'],
   credentials: true,
 }));
 
