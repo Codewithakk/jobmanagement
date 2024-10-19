@@ -14,7 +14,7 @@ const SendJobAlerts = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/jobs`);
+        const response = await axios.get(`${BASE_URL}/jobs/all`);
         if (response.data && response.data.length > 0) {
           setJobs(response.data); // Set jobs if data is available
         } else {
