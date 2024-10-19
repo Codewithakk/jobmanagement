@@ -55,13 +55,12 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 
-// Error Handling Middleware
+// Handle undefined routes
 app.use((req, res, next) => {
-  const error = new Error('Not Found');
-  error.status = 404;
-  next(error);
+  res.status(404).json({ message: 'Route not found' });
 });
 
+// Error handling middleware
 app.use((error, req, res, next) => {
   console.error(error.stack);
   res.status(error.status || 500).json({
@@ -70,16 +69,16 @@ app.use((error, req, res, next) => {
   });
 });
 
+
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true 
-})
-.then(() => console.log('MongoDB connected'))
-.catch((err) => console.log('MongoDB connection error:', err));
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.log('MongoDB connection error:', err));
+
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
