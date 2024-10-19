@@ -125,9 +125,9 @@ const updateInterview = async (req, res) => {
       return res.status(404).json({ message: 'Interview not found' });
     }
 
-    // Send email notification for the updated interview
-    const emailSubject = `Interview Updated: ${title}`;
-    const emailText = `
+// Send email notification for the updated interview
+const emailSubject = `Interview Updated: ${title}`;
+const emailHtml = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,18 +140,12 @@ const updateInterview = async (req, res) => {
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
-            animation: fadeIn 1s ease-in-out; /* Fade-in animation for the entire email */
+            animation: fadeIn 1s ease-in-out;
         }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -159,36 +153,30 @@ const updateInterview = async (req, res) => {
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease; /* Animation for hover effect */
+            transition: transform 0.3s ease;
         }
-
         .container:hover {
-            transform: translateY(-5px); /* Slight upward movement on hover */
+            transform: translateY(-5px);
         }
-
         h2 {
             color: #333;
-            text-align: center; /* Center the heading */
+            text-align: center;
             margin-bottom: 20px;
         }
-
         p {
             line-height: 1.5;
             color: #555;
-            margin: 10px 0; /* Add margin for better spacing */
+            margin: 10px 0;
         }
-
         .footer {
             margin-top: 20px;
             font-size: 0.9em;
             color: #999;
-            text-align: center; /* Center the footer text */
+            text-align: center;
         }
-
-        /* Responsive design */
         @media (max-width: 600px) {
             .container {
-                padding: 15px; /* Reduce padding on smaller screens */
+                padding: 15px;
             }
         }
     </style>
@@ -208,7 +196,7 @@ const updateInterview = async (req, res) => {
 </html>
 `;
 
-    await sendEmailNotification(email, emailSubject, emailText);
+await sendEmailNotification(email, emailSubject, emailHtml);
 
     res.status(200).json({ message: 'Interview updated successfully', interview: updatedInterview });
   } catch (error) {
