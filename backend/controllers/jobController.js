@@ -80,7 +80,7 @@ exports.sendJobAlerts = async (req, res) => {
   
 
   const mailOptions = {
-    from: 'Your Company <no-reply@yourcompany.com>',
+    from: 'Akshay Developer <no-reply@yourcompany.com>',
     to: candidates.join(','), // Join emails into a comma-separated string
     subject: `Exciting Job Opportunities`,
     html: `
@@ -144,7 +144,7 @@ exports.sendJobAlerts = async (req, res) => {
             ${jobDescriptions}
             <p>We encourage you to apply for these positions. If you have any questions, feel free to reach out.</p>
             <div class="footer">
-              <p>Best regards,<br>Your Company Team</p>
+              <p>Best regards,<br>Akshay Developer Team</p>
             </div>
           </div>
         </body>
