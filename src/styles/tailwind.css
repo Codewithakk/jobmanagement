@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /*------Color variables------*/
+    --black_900: #000000;
+    --blue_a700: #0b66ef;
+    --blue_a700_b2: #0b66efb2;
+    --blue_gray_100: #cccccc;
+    --blue_gray_100_01: #d0d0d0;
+    --blue_gray_400: #838f9f;
+    --blue_gray_600: #576474;
+    --blue_gray_700: #535353;
+    --blue_gray_700_b2: #535353b2;
+    --deep_purple_a200: #a954ff;
+    --gray_100: #f3f3f3;
+    --gray_300: #dadada;
+    --gray_500: #a5a5a5;
+    --gray_500_01: #a7a7a7;
+    --gray_500_02: #909090;
+    --gray_700: #696969;
+    --gray_900_b2: #292929b2;
+    --green_700: #1eb600;
+    --indigo_a200: #3e70ff;
+    --white_a700: #ffffff;
+
+    /*------Border radius variables------*/
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-xl: 12px;
+    --radius-2xl: 14px;
+    --radius-3xl: 22px;
+
+    /*------Spacing variables------*/
+    --space-xs: 10px;
+    --space-sm: 16px;
+    --space-md: 30px;
+    --space-lg: 34px;
+    --space-xl: 57px;
+  }
+}
+@layer components {
+  /*-------------------------------------
+  Container CSS
+--------------------------------------*/
+  .container-xs {
+    @apply w-full mx-auto max-w-[1580px];
+  }
+}
