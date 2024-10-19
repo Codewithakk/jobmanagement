@@ -90,3 +90,10 @@ process.on('SIGTERM', () => {
     console.log('Process terminated');
   });
 });
+
+// Graceful Shutdown
+process.on('SIGTERM', () => {
+  app.close(() => {
+    console.log('Process terminated');
+  });
+});
