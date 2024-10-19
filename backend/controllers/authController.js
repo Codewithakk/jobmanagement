@@ -27,13 +27,39 @@ const sendOtpEmail = async (email, otp) => {
     to: email,
     subject: 'Account Verification - Your OTP',
     html: `
-      <div>
-        <h2>Welcome to ${process.env.COMPANY_NAME}!</h2>
-        <p>Your OTP for email verification is: <strong>${otp}</strong></p>
-        <p>If you did not create an account, no further action is required.</p>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; border: 1px solid #ddd;">
+        <div style="background-color: #007bff; color: white; padding: 10px; border-radius: 8px 8px 0 0;">
+          <h2 style="text-align: center; margin: 0;">Welcome to ${process.env.COMPANY_NAME}!</h2>
+        </div>
+  
+        <div style="padding: 20px; background-color: white; border-radius: 0 0 8px 8px;">
+          <p style="font-size: 16px; color: #333;">Hello,</p>
+  
+          <p style="font-size: 16px; color: #333;">Thank you for signing up with <strong>${process.env.COMPANY_NAME}</strong>! Please use the OTP below to verify your email address and complete your account setup.</p>
+          
+          <div style="text-align: center; margin: 20px 0;">
+            <p style="font-size: 18px; font-weight: bold; background-color: #f0f0f0; display: inline-block; padding: 10px 20px; border-radius: 5px; border: 1px solid #ccc;">
+              ${otp}
+            </p>
+          </div>
+  
+          <p style="font-size: 16px; color: #333;">If you did not create an account, no further action is required.</p>
+          
+          <p style="font-size: 16px; color: #333;">For any assistance, feel free to contact our support team.</p>
+  
+          <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+          
+          <p style="font-size: 14px; color: #999;">Best regards,<br>The ${process.env.COMPANY_NAME} Team</p>
+        </div>
+  
+        <div style="text-align: center; margin-top: 10px;">
+          <p style="font-size: 12px; color: #888;">&copy; ${new Date().getFullYear()} ${process.env.COMPANY_NAME}. All rights reserved.</p>
+          <p style="font-size: 12px; color: #888;">Need help? <a href="mailto:support@gmail.com" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
+        </div>
       </div>
     `,
   };
+  
 
   try {
     await transporter.sendMail(mailOptions);
@@ -107,7 +133,6 @@ exports.verifyEmail = async (req, res) => {
     if (!company) {
       return res.status(400).json({ message: 'Invalid email' });
     }
-
     if (otp !== company.emailOtp) {
       return res.status(400).json({ message: 'Invalid Email OTP' });
     }
@@ -132,12 +157,16 @@ exports.verifyPhone = async (req, res) => {
     if (!company) {
       return res.status(400).json({ message: 'Invalid phone number' });
     }
-
+    if (company)
+      {
+         return res.json({message: `mobile otp ${company.phoneOtp}`})
+      }
+    company.isPhoneVerified = true;
+      
     if (otp !== company.phoneOtp) {
       return res.status(400).json({ message: 'Invalid Phone OTP' });
     }
 
-    company.isPhoneVerified = true;
     company.phoneOtp = null; // Clear OTP after verification
     await company.save();
 
