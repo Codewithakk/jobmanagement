@@ -15,7 +15,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Adjust this to your frontend's origin
+  origin: 'http://localhost:3000',"https://job-management-akshay.netlify.app" // Adjust this to your frontend's origin
   credentials: true, // Enable credentials if you are using credentials in your fetch request
 }));
 
