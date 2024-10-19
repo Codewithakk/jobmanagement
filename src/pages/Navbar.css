@@ -18,7 +18,7 @@
 .nav-list {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 10px;
     padding: 0;
     margin: 0;
     transition: max-height 0.3s ease-in-out;
@@ -29,6 +29,10 @@
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #0056b3; /* Darker blue on hover */
 }
 
 .logout-button {
@@ -61,6 +65,7 @@
     transition: transform 0.3s ease;
 }
 
+/* Toggle icon transformation */
 .toggle:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -73,12 +78,14 @@
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* Responsive Logo Size */
 .navbar-logo .logo {
     height: 20px; /* Adjusted height */
     width: auto;  /* Maintain aspect ratio */
 }
 
 @media (max-width: 768px) {
+    /* Adjust the navbar for mobile screens */
     .nav-list {
         flex-direction: column;
         position: absolute;
@@ -106,5 +113,21 @@
 
     .nav-link {
         font-size: 16px; /* Slightly smaller font for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for smaller devices */
+    .nav-link {
+        font-size: 14px; /* Smaller font size for small screens */
+    }
+
+    .logout-button {
+        padding: 8px 15px; /* Adjust logout button padding for mobile */
+        font-size: 16px; /* Smaller font size */
+    }
+
+    .navbar-logo .logo {
+        height: 18px; /* Even smaller logo for mobile screens */
     }
 }
