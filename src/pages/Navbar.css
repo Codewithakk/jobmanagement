@@ -1,0 +1,110 @@
+/* Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #ffffff; /* White background for the navbar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.navbar-logo .logo {
+    height: 42px;
+    width: 164px;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.nav-link {
+    color: #007BFF; /* Blue color for nav links */
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #ff6347; /* Red for logout */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #e5533d; /* Darker red on hover */
+}
+
+/* Mobile Styles */
+.menu-toggle {
+    display: none; /* Hide the toggle button on larger screens */
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    height: 3px;
+    width: 25px;
+    background-color: #007BFF;
+    margin: 3px 0;
+    transition: transform 0.3s ease;
+}
+
+.toggle:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.toggle:nth-child(2) {
+    opacity: 0;
+}
+
+.toggle:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.navbar-logo .logo {
+    height: 20px; /* Adjusted height */
+    width: auto;  /* Maintain aspect ratio */
+}
+
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Adjust based on your navbar height */
+        right: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        overflow: hidden;
+        max-height: 0; /* Initially hidden */
+        transition: max-height 0.3s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-list.active {
+        max-height: 300px; /* Set a max height to show the menu */
+    }
+
+    .menu-toggle {
+        display: flex; /* Show the toggle button on mobile */
+    }
+
+    .nav-list li {
+        padding: 10px 20px; /* Add padding for each item */
+    }
+
+    .nav-link {
+        font-size: 16px; /* Slightly smaller font for mobile */
+    }
+}

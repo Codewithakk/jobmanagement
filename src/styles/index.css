@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: DM Sans;
+}
+
+* {
+  box-sizing: border-box;
+  line-height: normal;
+  font-family: inherit;
+  margin: unset;
+}
+
+.signupcolumn_border {
+  backdrop-filter: blur(1px);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #3e70ff, #a954ff);
+    background-clip: border-box;
+    mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude !important;
+    z-index: -10;
+    border-radius: 14px;
+    border: 1px solid transparent;
+  }
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}
+
+input {
+  background-color: transparent;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker-wrapper input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  padding: 0px;
+}
+
+.react-datepicker-popper {
+  z-index: 100000 !important;
+}
