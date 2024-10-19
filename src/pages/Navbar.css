@@ -89,8 +89,8 @@
     .nav-list {
         flex-direction: column;
         position: absolute;
-        top: 60px; /* Adjust based on your navbar height */
-        right: 20px;
+        top: 40px; /* Adjust based on your navbar height */
+        right: 10px;
         background-color: #ffffff;
         border-radius: 5px;
         overflow: hidden;
