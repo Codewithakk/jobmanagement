@@ -1,7 +1,3 @@
-Here's an enhanced professional version of the README file for your GitHub repository:
-
----
-
 # Job Management Application
 
 This project is a full-stack **Job Management System**, built with a ReactJS frontend and a Node.js/Express backend. It provides functionalities for job posting, interview scheduling, and candidate management. The project is designed to scale with both frontend and backend running separately.
@@ -54,6 +50,11 @@ Ensure you have the following tools installed on your system:
 - **Git**
 
 ---
+
+#for Test use this 
+
+email:  akshay.singh.as.2002@gmail.com
+password:  123456
 
 ### Frontend Setup
 
