@@ -9,7 +9,7 @@ const companySchema = new mongoose.Schema({
   emailOtp: { type: String },  // Temporarily store email OTP
   phoneOtp: { type: String },  // Temporarily store phone OTP
   isEmailVerified: { type: Boolean, default: false },
-  isPhoneVerified: { type: Boolean, default: false },
+  isPhoneVerified: { type: Boolean, default: true },
 });
 
 module.exports = mongoose.model('Company', companySchema);
