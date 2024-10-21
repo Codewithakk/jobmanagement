@@ -28,39 +28,58 @@ export default function AuthenticationSection() {
   const handleEmailOtpChange = (e) => setEmailOtp(e.target.value);
   const handleMobileOtpChange = (e) => setMobileOtp(e.target.value);
 
+  // Email validation
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email validation regex
+    return emailRegex.test(email);
+  };
+
+  // Mobile number validation (10-digit only)
+  const validateMobile = (number) => {
+    return /^\d{10}$/.test(number);
+  };
+
   const handleEmailVerification = async () => {
-    if (!email || emailOtp.length !== 6) {
-        setEmailMessage("Please enter a valid email and a 6-digit OTP.");
-        return;
+    if (!validateEmail(email)) {
+      setEmailMessage("Please enter a valid email.");
+      return;
+    }
+    if (emailOtp.length !== 6) {
+      setEmailMessage("Please enter a valid 6-digit OTP.");
+      return;
     }
 
     try {
-        const response = await fetch(`${BASE_URL}/auth/verify-email`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, otp: emailOtp })
-        });
+      const response = await fetch(`${BASE_URL}/auth/verify-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, otp: emailOtp })
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-            setIsEmailVerified(true);
-            setEmailMessage("Email verified successfully!");
-            setEmailOtp(""); // Reset OTP input
-        } else {
-            setEmailMessage(data.message);
-        }
+      if (response.ok) {
+        setIsEmailVerified(true);
+        setEmailMessage("Email verified successfully!");
+        setEmailOtp(""); // Reset OTP input
+      } else {
+        setEmailMessage(data.message);
+      }
     } catch (error) {
-        console.error("Error verifying email OTP:", error);
-        setEmailMessage("An error occurred while verifying the email OTP.");
+      console.error("Error verifying email OTP:", error);
+      setEmailMessage("An error occurred while verifying the email OTP.");
     }
-};
+  };
 
   const handleMobileVerification = async () => {
-    if (!contactNumber || contactNumber.length < 10 || !/^\d+$/.test(contactNumber)) {
-      setMobileMessage("Please enter a valid mobile number.");
+    if (!validateMobile(contactNumber)) {
+      setMobileMessage("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    if (mobileOtp.length !== 6) {
+      setMobileMessage("Please enter a valid 6-digit OTP.");
       return;
     }
 
@@ -183,7 +202,7 @@ export default function AuthenticationSection() {
             Verify Mobile OTP
             {isMobileVerified && <AiOutlineCheckCircle className="ml-2 text-black-500" size={16} />}
           </Button>
-          <h4>If did not get otp then please enter 123456 </h4>
+          <h4>If you did not get an OTP, please enter 123456</h4>
           {mobileMessage && <p className="mt-2 text-red-600">{mobileMessage}</p>}
         </div>
       </div>
