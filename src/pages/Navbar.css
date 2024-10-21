@@ -1,11 +1,11 @@
-/* Navbar.css */
+/* General Navbar Styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 10px 20px;
-    background-color: #ffffff; /* White background for the navbar */
+    background-color: #ffffff; /* White background */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     position: relative;
 }
@@ -21,7 +21,6 @@
     gap: 10px;
     padding: 0;
     margin: 0;
-    transition: max-height 0.3s ease-in-out;
 }
 
 .nav-link {
@@ -50,9 +49,9 @@
     background-color: #e5533d; /* Darker red on hover */
 }
 
-/* Mobile Styles */
+/* Mobile Menu Styles */
 .menu-toggle {
-    display: none; /* Hide the toggle button on larger screens */
+    display: none; /* Hide on larger screens */
     flex-direction: column;
     cursor: pointer;
 }
@@ -80,7 +79,7 @@
 
 /* Responsive Logo Size */
 .navbar-logo .logo {
-    height: 20px; /* Adjusted height */
+    height: 42px; /* Default size for larger screens */
     width: auto;  /* Maintain aspect ratio */
 }
 
@@ -89,18 +88,20 @@
     .nav-list {
         flex-direction: column;
         position: absolute;
-        top: 40px; /* Adjust based on your navbar height */
-        right: 10px;
+        top: 60px; /* Adjust based on your navbar height */
+        right: 5px;
         background-color: #ffffff;
         border-radius: 5px;
         overflow: hidden;
         max-height: 0; /* Initially hidden */
         transition: max-height 0.3s ease-in-out;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        width: 50%; /* Take full width on mobile */
+        padding: 0;
     }
 
     .nav-list.active {
-        max-height: 300px; /* Set a max height to show the menu */
+        max-height: 300px; /* Adjust max height to show the menu */
     }
 
     .menu-toggle {
@@ -108,11 +109,21 @@
     }
 
     .nav-list li {
-        padding: 10px 20px; /* Add padding for each item */
+        padding: 10px 0; /* Add padding for each item */
+        text-align: center; /* Center align mobile menu items */
     }
 
     .nav-link {
         font-size: 16px; /* Slightly smaller font for mobile */
+        width: 100%; /* Full width for easier tapping */
+        display: inline-block;
+        padding: 0px 0;
+    }
+
+    .logout-button {
+        font-size: 16px; /* Smaller font for mobile */
+        width: 100%; /* Full width for mobile */
+        padding: 12px 0;
     }
 }
 
@@ -123,11 +134,11 @@
     }
 
     .logout-button {
-        padding: 8px 15px; /* Adjust logout button padding for mobile */
+        padding: 8px 10px; /* Adjust logout button padding for mobile */
         font-size: 16px; /* Smaller font size */
     }
 
     .navbar-logo .logo {
-        height: 18px; /* Even smaller logo for mobile screens */
+        height: 28px; /* Smaller logo for very small screens */
     }
 }
