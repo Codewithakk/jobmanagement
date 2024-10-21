@@ -54,7 +54,7 @@ export default function AuthenticationSection() {
     }
   
     // Check if the entered OTP is '123456' (default OTP)
-    if (mobileOtp === "123456") {
+    if (mobileOtp == "123456") {
       setIsMobileVerified(true);
       setMobileMessage("Mobile verified successfully using default OTP!");
       return;

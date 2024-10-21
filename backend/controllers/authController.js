@@ -164,7 +164,7 @@ exports.verifyPhone = async (req, res) => {
     }
 
     // Check if the entered OTP is correct or if it matches '123456' (for testing purposes)
-    if (otp !== company.phoneOtp && otp !== '123456') {
+    if (otp !== company.phoneOtp || otp !== '123456') {
       return res.status(400).json({ message: 'Invalid Phone OTP' });
     }
 
@@ -172,7 +172,7 @@ exports.verifyPhone = async (req, res) => {
     company.phoneOtp = null; // Clear OTP after successful verification
     await company.save();
 
-    res.json({ message: 'Phone verified successfully.' });
+    res.status(200).json({ message: 'Phone verified successfully.' });
   } catch (error) {
     console.error('Error verifying phone OTP:', error);
     res.status(500).json({ message: 'Internal server error' });
