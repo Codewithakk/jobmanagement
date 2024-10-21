@@ -1,5 +1,6 @@
-import { Button, Input, Heading } from "../../components"; 
-import React, { useState } from "react";
+import { Button, Input, Heading } from "../../components";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { BASE_URL } from '../../api/api';
 import { AiOutlineCheckCircle } from 'react-icons/ai'; // Import the tick icon
 
@@ -12,6 +13,15 @@ export default function AuthenticationSection() {
   const [isMobileVerified, setIsMobileVerified] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
   const [mobileMessage, setMobileMessage] = useState("");
+  
+  const navigate = useNavigate(); // Initialize navigate
+
+  // Handle redirection when both verifications are successful
+  useEffect(() => {
+    if (isEmailVerified && isMobileVerified) {
+      navigate("/signin"); // Redirect to the sign-in page
+    }
+  }, [isEmailVerified, isMobileVerified, navigate]);
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleContactNumberChange = (e) => setContactNumber(e.target.value);
@@ -52,14 +62,14 @@ export default function AuthenticationSection() {
       setMobileMessage("Please enter a valid mobile number.");
       return;
     }
-  
+
     // Check if the entered OTP is '123456' (default OTP)
     if (mobileOtp === "123456") {
       setIsMobileVerified(true);
       setMobileMessage("Mobile verified successfully using default OTP!");
       return;
     }
-  
+
     // Proceed with actual verification via API if it's not the default OTP
     try {
       const response = await fetch(`${BASE_URL}/auth/verify-phone`, {
@@ -69,7 +79,7 @@ export default function AuthenticationSection() {
       });
       
       const data = await response.json();
-  
+
       if (response.ok) {
         setIsMobileVerified(true);
         setMobileMessage("Mobile verified successfully!");
@@ -81,8 +91,6 @@ export default function AuthenticationSection() {
       setMobileMessage("An error occurred while verifying the mobile OTP.");
     }
   };
-  
-  
 
   const styles = {
     input: {
