@@ -159,14 +159,14 @@ exports.verifyPhone = async (req, res) => {
     }
     if (company)
       {
-         return res.json({message: `mobile otp ${company.phoneOtp}`})
+        return res.status(200).json({ message:  `mobile otp ${company.phoneOtp}`});
       }
-    company.isPhoneVerified = true;
       
-    if (otp !== company.phoneOtp) {
-      return res.status(400).json({ message: 'Invalid Phone OTP' });
-    }
-
+      if (otp !== company.phoneOtp || otp == '123456') {
+        return res.status(400).json({ message: 'Invalid Phone OTP' });
+      }
+      
+    company.isPhoneVerified = true;
     company.phoneOtp = null; // Clear OTP after verification
     await company.save();
 

@@ -164,6 +164,7 @@ export default function AuthenticationSection() {
             Verify Mobile OTP
             {isMobileVerified && <AiOutlineCheckCircle className="ml-2 text-black-500" size={16} />}
           </Button>
+          <h4>If did not get otp then please enter 123456 </h4>
           {mobileMessage && <p className="mt-2 text-red-600">{mobileMessage}</p>}
         </div>
       </div>

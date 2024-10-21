@@ -37,59 +37,129 @@ const createInterview = async (req, res) => {
     });
 
     await newInterview.save();
+// Send email notification to the interviewer
+const emailSubject = `Interview Scheduled: ${title}`;
+const emailHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduled</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            animation: fadeIn 1s ease-in-out;
+        }
 
-    // Send email notification to the interviewer
-    const emailSubject = `Interview Scheduled: ${title}`;
-    const emailHtml = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Interview Scheduled</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #f4f4f4;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(0); }
+        }
+
+        h2 {
+            color: #4a90e2;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            animation: colorChange 3s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { color: #4a90e2; }
+            50% { color: #ff6347; }
+            100% { color: #4a90e2; }
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #ff6347;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .footer a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #ff6347;
+        }
+
+        @media (max-width: 600px) {
             .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 15px;
             }
-            h2 {
-                color: #333;
+            p, h2 {
+                font-size: 1em;
             }
-            p {
-                line-height: 1.5;
-                color: #555;
-            }
-            .footer {
-                margin-top: 20px;
-                font-size: 0.9em;
-                color: #999;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Interview Scheduled</h2>
-            <p>Dear <strong>${takenBy}</strong>,</p>
-            <p>You have an interview titled "<strong>${title}</strong>" scheduled on <strong>${date}</strong> at <strong>${time}</strong>. Please be prepared.</p>
-            <p>Best Regards,</p>
-            <p>Interview Scheduler</p>
-            <div class="footer">
-                <p>If you have any questions, feel free to contact us.</p>
-            </div>
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Interview Scheduled</h2>
+        <p>Dear <span class="highlight">${takenBy}</span>,</p>
+        <p>You have an interview titled "<span class="highlight">${title}</span>" scheduled on <span class="highlight">${date}</span> at <span class="highlight">${time}</span>. Please be prepared and make sure you have everything set up for the interview.</p>
+        <p>We are excited to meet you!</p>
+        <a href="#" class="cta-button">View Interview Details</a>
+        <div class="footer">
+            <p>If you have any questions, feel free to <a href="#">contact us</a>.</p>
         </div>
-    </body>
-    </html>
-    `;
+    </div>
+</body>
+</html>
+`;
 
     await sendEmailNotification(email, emailSubject, emailHtml);
 
@@ -125,76 +195,130 @@ const updateInterview = async (req, res) => {
       return res.status(404).json({ message: 'Interview not found' });
     }
 
-    // Send email notification for the updated interview
-    const emailSubject = `Interview Updated: ${title}`;
-    const emailHtml = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Interview Updated</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #f4f4f4;
-                animation: fadeIn 1s ease-in-out;
-            }
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
+   // Send email notification to the interviewer
+const emailSubject = `Interview Scheduled: ${title}`;
+const emailHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduled</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(0); }
+        }
+
+        h2 {
+            color: #4a90e2;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            animation: colorChange 3s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { color: #4a90e2; }
+            50% { color: #ff6347; }
+            100% { color: #4a90e2; }
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #ff6347;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .footer a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #ff6347;
+        }
+
+        @media (max-width: 600px) {
             .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
+                padding: 15px;
             }
-            .container:hover {
-                transform: translateY(-5px);
+            p, h2 {
+                font-size: 1em;
             }
-            h2 {
-                color: #333;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            p {
-                line-height: 1.5;
-                color: #555;
-                margin: 10px 0;
-            }
-            .footer {
-                margin-top: 20px;
-                font-size: 0.9em;
-                color: #999;
-                text-align: center;
-            }
-            @media (max-width: 600px) {
-                .container {
-                    padding: 15px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Interview Updated</h2>
-            <p>Dear <strong>${takenBy}</strong>,</p>
-            <p>Your interview titled "<strong>${title}</strong>" has been updated. It is now scheduled on <strong>${date}</strong> at <strong>${time}</strong>.</p>
-            <p>Best Regards,</p>
-            <p>Interview Scheduler</p>
-            <div class="footer">
-                <p>If you have any questions, feel free to contact us.</p>
-            </div>
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Interview Scheduled</h2>
+        <p>Dear <span class="highlight">${takenBy}</span>,</p>
+        <p>You have an interview titled "<span class="highlight">${title}</span>" scheduled on <span class="highlight">${date}</span> at <span class="highlight">${time}</span>. Please be prepared and make sure you have everything set up for the interview.</p>
+        <p>We are excited to meet you!</p>
+        <a href="#" class="cta-button">View Interview Details</a>
+        <div class="footer">
+            <p>If you have any questions, feel free to <a href="#">contact us</a>.</p>
         </div>
-    </body>
-    </html>
-    `;
+    </div>
+</body>
+</html>
+`;
+
 
     await sendEmailNotification(email, emailSubject, emailHtml);
 
