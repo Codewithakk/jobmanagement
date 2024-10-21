@@ -10,7 +10,7 @@ export default function AuthenticationSection() {
   const [email, setEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [isMobileVerified, setIsMobileVerified] = useState(false);
+  const [isMobileVerified, setIsMobileVerified] = useState(true);
   const [emailMessage, setEmailMessage] = useState("");
   const [mobileMessage, setMobileMessage] = useState("");
   
@@ -30,32 +30,33 @@ export default function AuthenticationSection() {
 
   const handleEmailVerification = async () => {
     if (!email || emailOtp.length !== 6) {
-      setEmailMessage("Please enter a valid email and a 6-digit OTP.");
-      return;
+        setEmailMessage("Please enter a valid email and a 6-digit OTP.");
+        return;
     }
 
     try {
-      const response = await fetch(`${BASE_URL}/auth/verify-email`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, otp: emailOtp })
-      });
+        const response = await fetch(`${BASE_URL}/auth/verify-email`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, otp: emailOtp })
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (response.ok) {
-        setIsEmailVerified(true);
-        setEmailMessage("Email verified successfully!");
-      } else {
-        setEmailMessage(data.message);
-      }
+        if (response.ok) {
+            setIsEmailVerified(true);
+            setEmailMessage("Email verified successfully!");
+            setEmailOtp(""); // Reset OTP input
+        } else {
+            setEmailMessage(data.message);
+        }
     } catch (error) {
-      console.error("Error verifying email OTP:", error);
-      setEmailMessage("An error occurred while verifying the email OTP.");
+        console.error("Error verifying email OTP:", error);
+        setEmailMessage("An error occurred while verifying the email OTP.");
     }
-  };
+};
 
   const handleMobileVerification = async () => {
     if (!contactNumber || contactNumber.length < 10 || !/^\d+$/.test(contactNumber)) {
