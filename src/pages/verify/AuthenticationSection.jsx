@@ -52,7 +52,15 @@ export default function AuthenticationSection() {
       setMobileMessage("Please enter a valid mobile number.");
       return;
     }
-
+  
+    // Check if the entered OTP is '123456' (default OTP)
+    if (mobileOtp === "123456") {
+      setIsMobileVerified(true);
+      setMobileMessage("Mobile verified successfully using default OTP!");
+      return;
+    }
+  
+    // Proceed with actual verification via API if it's not the default OTP
     try {
       const response = await fetch(`${BASE_URL}/auth/verify-phone`, {
         method: "POST",
@@ -61,7 +69,7 @@ export default function AuthenticationSection() {
       });
       
       const data = await response.json();
-
+  
       if (response.ok) {
         setIsMobileVerified(true);
         setMobileMessage("Mobile verified successfully!");
@@ -73,6 +81,7 @@ export default function AuthenticationSection() {
       setMobileMessage("An error occurred while verifying the mobile OTP.");
     }
   };
+  
 
   const styles = {
     input: {
