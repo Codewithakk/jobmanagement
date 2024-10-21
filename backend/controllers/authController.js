@@ -107,7 +107,7 @@ exports.registerCompany = async (req, res) => {
       emailOtp,
       phoneOtp,
       isEmailVerified: false,
-      isPhoneVerified: false,
+      isPhoneVerified: true,
     });
 
     // Send OTPs
