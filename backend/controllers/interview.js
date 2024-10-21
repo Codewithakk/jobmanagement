@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 const sendEmailNotification = async (email, subject, htmlContent) => {
   try {
     await transporter.sendMail({
-      from: process.env.EMAIL_USERNAME,
+      from: `${process.env.COMPANY_NAME} <${process.env.EMAIL_USERNAME}>`,
       to: email,
       subject: subject,
       html: htmlContent, // Use 'html' for sending HTML emails
