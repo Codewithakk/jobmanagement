@@ -157,17 +157,19 @@ exports.verifyPhone = async (req, res) => {
     if (!company) {
       return res.status(400).json({ message: 'Invalid phone number' });
     }
-    if (company)
-      {
-        return res.status(200).json({ message:  `mobile otp ${company.phoneOtp}`});
-      }
-      
-      if (otp !== company.phoneOtp || otp == '123456') {
-        return res.status(400).json({ message: 'Invalid Phone OTP' });
-      }
-      
+
+    // Return the OTP for testing (optional, remove this in production)
+    if (company) {
+      return res.status(200).json({ message: `mobile otp ${company.phoneOtp}` });
+    }
+
+    // Check if the entered OTP is correct or if it matches '123456' (for testing purposes)
+    if (otp !== company.phoneOtp && otp !== '123456') {
+      return res.status(400).json({ message: 'Invalid Phone OTP' });
+    }
+
     company.isPhoneVerified = true;
-    company.phoneOtp = null; // Clear OTP after verification
+    company.phoneOtp = null; // Clear OTP after successful verification
     await company.save();
 
     res.json({ message: 'Phone verified successfully.' });
@@ -176,6 +178,7 @@ exports.verifyPhone = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 // Company Login
 exports.loginCompany = async (req, res) => {
